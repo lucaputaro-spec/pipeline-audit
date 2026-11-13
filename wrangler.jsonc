@@ -1,0 +1,10 @@
+{
+  // Nur statische Dateien, kein Worker-Code: die Auswertung läuft komplett im
+  // Browser, es gibt keinen Server-Endpunkt, an den Daten gehen könnten.
+  // Workers Free: 100.000 Anfragen/Tag, beim Überschreiten Fehler statt Rechnung.
+  "name": "pipeline-audit",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "assets": { "directory": "./public" },
+  "observability": { "enabled": false }
+}

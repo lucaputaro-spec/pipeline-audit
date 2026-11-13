@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Luca Putaro | Pipeline audit in your browser</title>
+<meta name="description" content="Drop a CRM deal export and see where deals leak: stage conversion, time in stage, stalled deals, data gaps. Runs entirely in your browser, the file is never uploaded.">
+<link rel="preload" href="/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="top">
+  <a class="who" href="/">Luca Putaro</a>
+  <nav><a href="#how">How it works</a></nav>
+</header>
+
+<main>
+<section class="hero">
+  <h1>Drop a CRM export.<br>See where deals leak.</h1>
+  <p class="lede">A pipeline audit is the first thing I do for a sales team: find the step where deals get stuck, with the numbers to prove it. Every figure below shows the count it is based on, so you can check it by hand.</p>
+
+  <div class="drop" id="drop">
+    <p><strong>Drop a CSV deal export here</strong>, or pick a file. HubSpot, Pipedrive, Salesforce and spreadsheet exports work. Comma or semicolon, English or German column names.</p>
+    <div class="row">
+      <input type="file" id="file" accept=".csv,text/csv" aria-label="Choose a CSV file">
+      <button type="button" class="pill" id="ex-history">Example: 400 deals with stage history</button>
+      <button type="button" class="pill" id="ex-german">Example: small German export, no history</button>
+    </div>
+    <p class="promise">Runs entirely in your browser. The file is never uploaded, and nothing is stored.</p>
+  </div>
+  <div id="loaded" class="loaded" hidden></div>
+</section>
+
+<section class="section" id="columns-section" hidden>
+  <h2>1. Columns</h2>
+  <p class="sub">The page guessed which column holds what. Correct anything it got wrong. Only the current stage is required. Every other column unlocks more findings.</p>
+  <div class="mapping" id="mapping"></div>
+  <p class="history-note" id="history-note"></p>
+  <h3 style="margin-top:24px">Stage order</h3>
+  <p class="muted">Conversion depends on the order of stages. Won and lost go last.</p>
+  <ol class="order" id="order"></ol>
+</section>
+
+<section class="section" id="results" hidden></section>
+
+<section id="how" class="rules">
+  <h2>How it works</h2>
+  <dl>
+    <div><dt>Your data stays on your computer.</dt><dd>The file is read by JavaScript in this tab. There is no upload and no server code: the site only serves the page itself. Close the tab and the data is gone.</dd></div>
+    <div><dt>A deal export and a stage history answer different questions.</dt><dd>A plain export shows where deals are now: open value per stage, age, data gaps. Whether deals get stuck between stages needs a timestamp for every stage a deal entered. Without that history, those numbers are marked as not computable instead of guessed.</dd></div>
+    <div><dt>Conversion comes from fair cohorts.</dt><dd>A deal that entered a stage last week has not had a chance to move on yet. Conversion only counts deals that entered the stage at least 60 days before the last date in the file, and it says how many younger deals were left out.</dd></div>
+    <div><dt>Rules, not AI.</dt><dd>Every number is a fixed calculation with its numerator, denominator and period shown. The ranking of what to fix first uses one rule: the share of deals affected. Findings that affect fewer than 10% of deals, or are based on fewer than 5 deals, are not ranked.</dd></div>
+    <div><dt>The reference date is the last date in the file.</dt><dd>Ages and “no activity for 30 days” are measured from the latest date in the export, not from today. The result is the same whenever you open it.</dd></div>
+    <div><dt>The examples are made up.</dt><dd>Both example files are invented for this demo, with leaks built in on purpose. No real company, person or deal is in them.</dd></div>
+  </dl>
+</section>
+</main>
+
+<footer>
+  <p>Built by Luca Putaro. Runs in your browser. No upload, no cookies, no tracking.</p>
+  <p><a href="https://gtm-os.lucaputaro.workers.dev">Project 1: a sales funnel, live</a> · <a href="https://lead-table.lucaputaro.workers.dev">Project 2: list enrichment</a> · <a href="/imprint.html">Impressum</a> · <a href="/privacy.html">Datenschutz</a></p>
+</footer>
+<script type="module" src="/app.js"></script>
+</body>
+</html>
